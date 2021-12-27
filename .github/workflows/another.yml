@@ -12,4 +12,4 @@ jobs:
     name: Test Step
     runs-on: macos-latest
     steps:
-      - run: echo "I am running now"
+      - run: echo "I am running now on macos-latest"
