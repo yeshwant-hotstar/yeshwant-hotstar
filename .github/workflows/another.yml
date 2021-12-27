@@ -6,6 +6,8 @@ on:
       - CI test
     types:
       - completed
+  push:
+    branches: [ main ]
 
 jobs:
   test-job:
