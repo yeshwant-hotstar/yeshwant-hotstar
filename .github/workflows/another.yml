@@ -10,6 +10,6 @@ on:
 jobs:
   test-job:
     name: Test Step
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - run: echo "I am running now"
