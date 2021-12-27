@@ -1,15 +1,22 @@
 name: Test
 
 on:
-  workflow_run:
-    workflows:
-      - CI test
-    types:
-      - completed
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   test-job:
     name: Test Step
     runs-on: macos-latest
     steps:
-      - run: echo "I am running now on macos-latest"
+      - name: Wait for tests to succeed
+        uses: lewagon/wait-on-check-action@v1.0.0
+        with:
+          ref: ${{ github.ref }}
+          check-name: 'CI test'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          wait-interval: 10
+          allowed-conclusions: success,skipped,cancelled
+        run: echo "I am running now on macos-latest"
