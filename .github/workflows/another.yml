@@ -16,5 +16,6 @@ jobs:
   test-job2:
     name: Test Step2
     runs-on: macos-latest
+    needs: test-job1
     steps:
       - run: echo "I am running now on macos" && sleep 50
