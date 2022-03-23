@@ -26,11 +26,11 @@ jobs:
             echo $file
             if [[ $file == "README"* ]]
             then
-            echo ::set-env name=run_snapshot_test::true
+            echo ::set-output name=run_snapshot_test::true
             fi
           done
 
       - name: Perform action when test_directory changes
-        if: env.run_snapshot_test == 'true'
+        if: steps.blah.outputs.run_snapshot_test == 'true'
         run: |
           echo "readme has changed."
