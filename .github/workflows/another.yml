@@ -24,13 +24,13 @@ jobs:
         run: |
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             echo $file
-            if [[ $file == "common-ui/"* ]] || [[ $file == "pages/"* ]] || [[ $file == "widgets/"* ]]
+            if [[ $file == "README"* ]]
             then
-            echo ::set-output name=status::success
+            echo ::set-output name=run_snapshot_test::true
             fi
           done
 
       - name: Perform action when test_directory changes
-        if: steps.blah.outputs.status == 'success'
+        if: steps.blah.outputs.run_snapshot_test == true
         run: |
-          echo "test_directory has changed."
+          echo "readme has changed."
