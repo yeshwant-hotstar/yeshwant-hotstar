@@ -8,6 +8,8 @@ on:
 
 jobs:
   snapshot_test:
+  runs-on: ubuntu-latest
+  
   steps:
     - name: Verify Changed files
       uses: tj-actions/verify-changed-files@v9
