@@ -12,15 +12,25 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
-      - name: Verify Changed files
-        uses: tj-actions/verify-changed-files@v9
-        id: verify-changed-files
         with:
-          files: |
-             README.md
+          fetch-depth: 0
+
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v18.4
+
+     - name: List all changed files
+        id: blah
+        run: |
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            echo $file
+            if [[ $file == "common-ui/"* ]] || [[ $file == "pages/"* ]] || [[ $file == "widgets/"* ]]
+            then
+            echo ::set-output name=status::success
+            fi
+          done
 
       - name: Perform action when test_directory changes
-        if: steps.verify-changed-files.outputs.files_changed == 'true'
+        if: steps.blah.outputs.status == 'success'
         run: |
           echo "test_directory has changed."
