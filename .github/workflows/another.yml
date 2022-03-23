@@ -7,15 +7,17 @@ on:
     branches: [ main ]
 
 jobs:
-  test-job1:
-    name: Test Step1
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "I am running now" && sleep 50
+  snapshot_test:
+  steps:
+    - name: Verify Changed files
+      uses: tj-actions/verify-changed-files@v9
+      id: verify-changed-files
+      with:
+        files: |
+           README.md
+           test_directory
 
-  test-job2:
-    name: Test Step2
-    runs-on: macos-latest
-    needs: test-job1
-    steps:
-      - run: echo "I am running now on macos" && sleep 50
+    - name: Perform action when test_directory changes
+      if: steps.verify-changed-files.outputs.files_changed == 'true'
+      run: |
+        echo "test_directory has changed."
